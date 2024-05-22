@@ -40,4 +40,9 @@ public class UserController implements UserService<Integer, UserDto> {
     public Response<List<UserDto>> getAll() {
         return this.userServiceImpl.getAll();
     }
+
+    @GetMapping("/createPdfFile")
+    public Response<String> createPdfFile() {
+        return this.userServiceImpl.createPdfFile();
+    }
 }
