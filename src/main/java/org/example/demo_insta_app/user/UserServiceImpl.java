@@ -11,7 +11,7 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.DashedBorder;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

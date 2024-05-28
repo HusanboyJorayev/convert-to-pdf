@@ -10,12 +10,13 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
@@ -26,9 +27,9 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class GeneratorServiceImpl {
-
-    public byte[] createPdf(String phone, String email, String accountNumber, String routingNumber,
+public class GenerateSecondService {
+    public byte[] createPdf(String phone, String email,
+                            String accountNumber, String routingNumber,
                             MultipartFile podFile, MultipartFile bolFile, MultipartFile rateConfirmationFile) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             PdfWriter writer = new PdfWriter(baos);
@@ -73,51 +74,33 @@ public class GeneratorServiceImpl {
             // todo from
             float[] twoR = {250f};
             Table twoT = new Table(twoR);
-            twoT.addCell("FROM").setBold().setFontSize(12).setBorder(Border.NO_BORDER).setFontColor(ColorConstants.WHITE);
+            twoT.addCell(" FROM ").setBold().setFontSize(12).setBorder(Border.NO_BORDER).setFontColor(ColorConstants.WHITE);
             document.add(twoT.setBackgroundColor(ColorConstants.BLACK));
             document.add(bt);
 
 
-            // todo beyond factoring
-            float ff = 250f;
-            float[] fr = {ff};
-            Table ft = new Table(fr);
-            ft.addCell("Beyond Factoring LLC").setBorder(Border.NO_BORDER).setFontSize(10);
-            document.add(ft);
+            float[] twoRr = {250f};
+            Table twoTt = new Table(twoRr);
+            twoTt.addCell("Cargo prime LLC").setFontSize(12).setBorder(Border.NO_BORDER);
+            twoTt.addCell("9800A mcKnight Road Suite 310\nPittsburgh PA\nPhone:" + phone + "\nFax:12345" + "\nEmail:" + email)
+                    .setFontSize(10).setBorder(Border.NO_BORDER);
+            document.add(twoTt);
 
-
-            // todo factoring information
-            float f1 = 250f;
-            float[] f1r = {f1};
-            Table f1t = new Table(f1r);
-            f1t.addCell("325,Sentry ParkWay,Building 5,Suite 200\n"
-                            + "Blue Bell,PA 19422,USA\n" + "Phone:" + phone + "\nEmail:" + email)
-                    .setBorder(Border.NO_BORDER).setFontSize(10);
-            document.add(new Paragraph("\n"));
-            document.add(f1t);
 
             // todo on behalf of
-            float[] twoR1 = {250f, 20f, 250f};
+            float[] twoR1 = {520f};
             Table twoT1 = new Table(twoR1);
-            twoT1.addCell("ON BEHALF OF").setBold().setFontSize(12).setBorder(Border.NO_BORDER).setBold().setFontColor(ColorConstants.WHITE);
-            twoT1.addCell("").setBold().setFontSize(12).setBorder(Border.NO_BORDER).setBold();
-            twoT1.addCell("PAYMENT DETAILS").setBold().setFontSize(12).setBorder(Border.NO_BORDER).setBold().setFontColor(ColorConstants.WHITE);
+            twoT1.addCell("PAYMENT DETAILS").setBold().setFontSize(12).setBorder(Border.NO_BORDER)
+                    .setBold().setFontColor(ColorConstants.WHITE).setTextAlignment(TextAlignment.CENTER);
 
             document.add(new Paragraph("\n"));
             document.add(twoT1.setBackgroundColor(ColorConstants.BLACK));
-            document.add(bt2);
 
             // todo cargo prime llc
-            float[] twoR2 = {250f, 20f, 250f};
+            float[] twoR2 = {520f};
             Table twoT2 = new Table(twoR2);
-            twoT2.addCell("Cargo prime LLC").setFontSize(12).setBorder(Border.NO_BORDER);
-            twoT2.addCell("").setFontSize(12).setBorder(Border.NO_BORDER);
-            twoT2.addCell("Chase Bank, N.A").setFontSize(12).setBorder(Border.NO_BORDER);
+            twoT2.addCell("Chase Bank, N.A").setFontSize(12).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER);
 
-
-            twoT2.addCell("9800A mcKnight Road Suite 310\nPittsburgh PA\nPhone:" + phone + "\nFax:12345" + "\nEmail:" + email)
-                    .setFontSize(10).setBorder(Border.NO_BORDER);
-            twoT2.addCell("").setFontSize(12).setBorder(Border.NO_BORDER);
             twoT2.addCell("Account number   " + accountNumber + "\nRouting number   " + routingNumber)
                     .setFontSize(12).setBorder(Border.NO_BORDER);
             document.add(twoT2);
@@ -157,10 +140,11 @@ public class GeneratorServiceImpl {
 
 
             // todo load
-            float[] twoR6 = {250f, 20f, 250f};
+            float[] twoR6 = {520};
             int load = 1234;
             Table twoT6 = new Table(twoR6);
-            twoT6.addCell("LOAD # " + load).setFontSize(12).setFontColor(ColorConstants.WHITE).setBorder(Border.NO_BORDER)
+            twoT6.addCell("LOAD # " + load).setFontSize(12).setFontColor(ColorConstants.WHITE)
+                    .setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.CENTER)
                     .setBold();
             document.add(new Paragraph("\n"));
             document.add(twoT6.setBorder(Border.NO_BORDER).setBackgroundColor(ColorConstants.BLACK));
@@ -197,7 +181,6 @@ public class GeneratorServiceImpl {
             }
             pod.close();
 
-
             // TODO ADD BOL FILE
             PdfDocument bol = new PdfDocument(new PdfReader(bolFile.getInputStream()));
             int bolPages = bol.getNumberOfPages();
@@ -206,7 +189,6 @@ public class GeneratorServiceImpl {
                 pdfDoc.addPage(pdfPage);
             }
             bol.close();
-
 
             // TODO ADD RATE CONFIRMATION FILE
             PdfDocument rate = new PdfDocument(new PdfReader(rateConfirmationFile.getInputStream()));
@@ -217,7 +199,6 @@ public class GeneratorServiceImpl {
             }
             rate.close();
 
-
             document.close();
             return baos.toByteArray();
         } catch (Exception e) {
@@ -225,9 +206,7 @@ public class GeneratorServiceImpl {
         }
     }
 
-
-
- /*   // todo page 4
+/*    // todo page 4
     private static void page4(Document document) {
         float[] pageR4 = {250f};
         DateFormat dateFormat = new SimpleDateFormat("ddMM");

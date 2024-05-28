@@ -16,10 +16,10 @@ public class AddUserOn2Seconds {
 
     Integer age = 23;
 
-    @Scheduled(cron = "*/60 * * * * *")
-    public void addUserOn2Seconds() {
+   // @Scheduled(cron = "*/60 * * * * *")
+   /* public void addUserOn2Seconds() {
         Optional<User> byId = this.userRepository.findById(age);
         System.out.println(byId.get());
         age++;
-    }
+    }*/
 }

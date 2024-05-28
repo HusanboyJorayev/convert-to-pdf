@@ -1,11 +1,13 @@
 package org.example.demo_insta_app.demo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DemoUserServiceImpl implements DemoService {
@@ -19,6 +21,7 @@ public class DemoUserServiceImpl implements DemoService {
 
     @Override
     public List<DemoUser> getAll() {
+        log.info("get all users");
         return this.demoRepository.findAll();
     }
 
