@@ -1,9 +1,7 @@
 package org.example.demo_insta_app.generator;
 
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Parameter;
+
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +34,7 @@ public class Generator {
                                               @RequestParam("email") String email,
                                               @RequestParam("account_number") String accountNumber,
                                               @RequestParam("routing_number") String routingNumber,
-                                              @RequestParam(value = "podFile", required = false) MultipartFile podFile,
+                                              @RequestParam(value = "podFile", required = false,defaultValue = "null") MultipartFile podFile,
                                               @RequestParam(value = "bolFile", required = false) MultipartFile bolFile,
                                               @RequestParam(value = "rateConfirmationFile", required = false) MultipartFile rateConfirmationFile) {
         try {

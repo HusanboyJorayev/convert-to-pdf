@@ -209,13 +209,16 @@ public class GeneratorServiceImpl {
 
 
             // TODO ADD RATE CONFIRMATION FILE
-            PdfDocument rate = new PdfDocument(new PdfReader(rateConfirmationFile.getInputStream()));
-            int ratePages = rate.getNumberOfPages();
-            for (int i = 1; i <= ratePages; i++) {
-                PdfPage ratePage = rate.getPage(i).copyTo(pdfDoc);
-                pdfDoc.addPage(ratePage);
+            if (!rateConfirmationFile.isEmpty() && rateConfirmationFile != null) {
+                PdfReader reader = new PdfReader(rateConfirmationFile.getInputStream());
+                PdfDocument rate = new PdfDocument(reader);
+                int ratePages = rate.getNumberOfPages();
+                for (int i = 1; i <= ratePages; i++) {
+                    PdfPage ratePage = rate.getPage(i).copyTo(pdfDoc);
+                    pdfDoc.addPage(ratePage);
+                }
+                rate.close();
             }
-            rate.close();
 
 
             document.close();
